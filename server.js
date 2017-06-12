@@ -53,7 +53,6 @@ function startLint(path, id) {
         state: 'complete',
         results: results
       });
-      console.log(results);
     })
     .catch(e => store.set(id, {
       state: 'error',
