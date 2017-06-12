@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/style.css">
+    <title></title>
+  </head>
+  <body>
+    <article class="container">
+      <header class="header">
+        <h1>Extension Compatibility Tester</h1>
+      </header>
+      <section class="processing-status">
+        <h1 class="status"></h1>
+      </section>
+      <article class="report">
+        <header class="report-summary">
+        </header>
+        <details>
+          <summary>
+            <h2>Report Details</h2>
+          </summary>
+          <pre class="report-details"></pre>
+        </details>
+      </article>
+    </article>
+
+    <script src="/dom.js"></script>
+    <script>
+
+      var id = location.toString().match(/test\/([a-fA-F0-9-]+)/)[1];
+
+      function checkStatus() {
+        fetch('/status/' + id)
+          .then(r => r.json())
+          .then(status => {
+            document.querySelector('.status').innerHTML = status.state;
+
+            console.log(status);
+
+            if (status.state === 'complete') {
+              document.querySelector('.container').classList.add('complete');
+              showReport(status.results);
+            } else if (status.state === 'error') {
+              document.querySelector('.container').classList.add('complete');
+              showError(status.error);
+            } else {
+              setTimeout(checkStatus, 1000);
+            }
+          });
+      }
+
+      function showError(error) {
+        let summary = document.querySelector('.report-summary');
+        let output = d(
+          d('h1', 'Error processing your package:'),
+          d('h2', error)
+        );
+
+        summary.appendChild(output.toDom());
+      }
+
+      function showReport(results) {
+        let summary = document.querySelector('.report-summary');
+        let details = document.querySelector('.report-details');
+
+        let report;
+        if (results.compat.length) {
+          report = d(
+            d('h1', 'This extension may not be compatible with Firefox!'),
+            d('h2',
+              results.compat.length,
+              (results.compat.length > 1 ?
+                ' compatibility issues ' :
+                ' compatibility issue '
+              ),
+              'found:'
+            ),
+            d('ul',
+              results.compat.map(m => d('li',
+                d('b', m.file),
+                (m.line ? ':' + m.line + ': ' : ': '),
+                m.message
+              ))
+            )
+          );
+        } else {
+          report = d('h1', 'This extension is compatible with Firefox!');
+        }
+
+        summary.appendChild(report.toDom());
+
+        details.innerHTML = JSON.stringify(results, null, 2);
+      }
+
+      checkStatus();
+    </script>
+  </body>
+</html>

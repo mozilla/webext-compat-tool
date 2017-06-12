@@ -1,0 +1,77 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: sans-serif;
+  line-height: 1.4;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+.header {
+  text-align: center;
+}
+
+pre {
+  background: #eee;
+  padding: 1em;
+  border: 1px solid #aaa;
+  white-space: pre-wrap;
+}
+
+.processing-status {
+  text-align: center;
+}
+
+.report {
+  display: none;
+}
+.complete .report {
+  display: block;
+}
+.complete .processing-status {
+  display: none;
+}
+
+.upload {
+  text-align: center;
+}
+.upload button {
+  cursor: pointer;
+  font-size: 2em;
+  padding: .2em 1em .3em;
+  border: 3px solid currentColor;
+  background: transparent;
+  border-radius: 2em;
+  line-height: 1;
+}
+
+summary {
+  cursor: pointer;
+}
+summary > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#fileField {
+  display: none;
+}
+
+.upload .file-ready {
+  display: none;
+}
+.upload.ready .file-ready {
+  display: block;
+}
+.upload.ready .file-select {
+  display: none;
+}

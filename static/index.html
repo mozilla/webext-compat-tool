@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/style.css">
+    <title>WebExtensions</title>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1>Extension Compatibility Tester</h1>
+      </header>
+      <section class="upload">
+        <form ref='uploadForm' id='uploadForm' action='/upload'
+              method='post' encType="multipart/form-data">
+          <input type="file" name="package" id="fileField"/>
+          <button class="file-select">Select File&hellip;</button>
+          <div class="file-ready">
+            <h3 class="selected-file"></h3>
+            <button class="form-submit">Upload</button>
+          </div>
+        </form>
+      </section>
+    </div>
+    <script>
+      window.addEventListener('load', function (e) {
+        let fileButton = document.querySelector('.file-select');
+        let fileInput = document.querySelector('#fileField');
+
+        fileButton.addEventListener('click', function (e) {
+          fileInput.click();
+          e.preventDefault();
+        });
+
+        fileInput.addEventListener('change', function (e) {
+          if (e.target.files.length) {
+            console.log(e.target.files);
+            document.querySelector('.upload').classList.add('ready');
+            document.querySelector('.selected-file').innerHTML = 'selected file: ' + e.target.files[0].name
+          }
+        });
+
+      });
+
+    </script>
+  </body>
+</html>
