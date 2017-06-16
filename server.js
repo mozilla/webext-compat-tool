@@ -3,11 +3,19 @@ const fileUpload = require('express-fileupload');
 const app = express();
 const fs = require('fs-extra');
 const path = require("path");
-const linter = require('./linter');
-const store = require('./store');
+const linter = require('./lib/linter');
 const uuid = require("uuid/v1");
 
 const TEMP_DIR = path.join(__dirname, ".temp");
+
+let store;
+if (process.env.REDIS_URL) {
+  console.log('using redis store...');
+  store = require('./lib/redis-store');
+} else {
+  console.log('using in-memory...');
+  store = require('./lib/memory-store');
+}
 
 // default options
 app.use(fileUpload());
