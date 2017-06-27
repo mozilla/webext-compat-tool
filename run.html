@@ -34,9 +34,11 @@
         fetch('/status/' + id)
           .then(r => r.json())
           .then(status => {
-            document.querySelector('.status').innerHTML = status.state;
-
-            console.log(status);
+            if (status.state === 'waiting') {
+              document.querySelector('.status').innerHTML = 'Waiting in line for a linter to become available&hellip;';
+            } else {
+              document.querySelector('.status').innerHTML = status.state;
+            }
 
             if (status.state === 'complete') {
               document.querySelector('.container').classList.add('complete');

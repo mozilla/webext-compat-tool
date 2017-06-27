@@ -3,19 +3,12 @@ const fileUpload = require('express-fileupload');
 const app = express();
 const fs = require('fs-extra');
 const path = require("path");
-const linter = require('./lib/linter');
+const queue = require('./lib/queue');
 const uuid = require("uuid/v1");
 
 const TEMP_DIR = path.join(__dirname, ".temp");
 
-let store;
-if (process.env.REDIS_URL) {
-  console.log('using redis store...');
-  store = require('./lib/redis-store');
-} else {
-  console.log('using in-memory...');
-  store = require('./lib/memory-store');
-}
+const store = require('./lib/store');
 
 // default options
 app.use(fileUpload());
@@ -47,27 +40,14 @@ app.post('/upload', function(req, res) {
 
         res.redirect('/test/' + id);
 
-        startLint(path.join(TEMP_DIR, sampleFile.name), id);
+        queue.addJob({
+          id: id,
+          packagePath: path.join(TEMP_DIR, sampleFile.name)
+        });
 
-        store.set(id, { state: 'running' });
       });
     });
 });
-
-function startLint(path, id) {
-  linter.compatLint(path, id)
-    .then(results => {
-      store.set(id, {
-        state: 'complete',
-        results: results
-      });
-    })
-    .catch(e => store.set(id, {
-      state: 'error',
-      _: console.log(e),
-      error: e.message
-    }));
-}
 
 app.get('/test/:id', function(req, res) {
   const id = req.params.id;
