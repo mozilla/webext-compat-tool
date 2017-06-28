@@ -28,5 +28,6 @@
     "unzip": "^0.1.11",
     "unzip-crx": "^0.2.0",
     "uuid": "^3.0.1"
-  }
+  },
+  "devDependencies": {}
 }
