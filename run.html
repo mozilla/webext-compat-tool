@@ -13,7 +13,7 @@
       <section class="processing-status">
         <h1 class="status"></h1>
       </section>
-      <article class="report">
+      <section class="report">
         <header class="report-summary">
         </header>
         <details>
@@ -22,7 +22,7 @@
           </summary>
           <pre class="report-details"></pre>
         </details>
-      </article>
+      </section>
     </article>
 
     <script src="/dom.js"></script>
@@ -42,7 +42,25 @@
 
             if (status.state === 'complete') {
               document.querySelector('.container').classList.add('complete');
-              showReport(status.results);
+
+              let results = Object.entries(status.results).reduce((result, [type, entries]) => {
+                result[type] = Object.values(entries.reduce((result, entry) => {
+                  if (!result[entry.message]) {
+                    result[entry.message] = {
+                      message: entry.message,
+                      locations: []
+                    };
+                  }
+                  result[entry.message].locations.push({
+                    file: entry.file,
+                    line: entry.line
+                  });
+                  return result;
+                }, {}));
+                return result;
+              }, {});
+
+              showReport(results);
             } else if (status.state === 'error') {
               document.querySelector('.container').classList.add('complete');
               showError(status.error);
@@ -80,9 +98,14 @@
             ),
             d('ul',
               results.compat.map(m => d('li',
-                d('b', m.file),
-                (m.line ? ':' + m.line + ': ' : ': '),
-                m.message
+                d('h3', m.message),
+                d('p', 'found in the following locations:'),
+                d('ul', {'class': 'locations'},
+                  m.locations.map(l => d('li',
+                    l.file,
+                    (l.line ? ':' + l.line : '')
+                  ))
+                )
               ))
             )
           );
