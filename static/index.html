@@ -2,15 +2,19 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://code.cdn.mozilla.net/fonts/fira.css">
     <link rel="stylesheet" href="/style.css">
-    <title>WebExtensions</title>
+    <title>Extension Compatibility Tester</title>
   </head>
   <body>
-    <div class="container">
-      <header class="header">
-        <h1>Extension Compatibility Tester</h1>
-      </header>
-      <section class="upload">
+    <header class="header">
+      <h1 class="masthead">
+        Extension Compatibility Tester
+      </h1>
+    </header>
+
+    <div class="row highlight">
+      <section class="section upload">
         <form ref='uploadForm' id='uploadForm' action='/upload'
               method='post' encType="multipart/form-data">
           <input type="file" name="package" id="fileField"/>
@@ -22,6 +26,13 @@
         </form>
       </section>
     </div>
+
+    <div class="row footer highlight">
+      <footer class="section">
+        This tool provided with &hearts; by Mozilla.
+      </footer>
+    </div>
+
     <script>
       window.addEventListener('load', function (e) {
         let fileButton = document.querySelector('.file-select');

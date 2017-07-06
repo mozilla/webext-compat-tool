@@ -2,28 +2,61 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://code.cdn.mozilla.net/fonts/fira.css">
     <link rel="stylesheet" href="/style.css">
-    <title></title>
+    <title>Extension Compatibility Tester</title>
   </head>
   <body>
-    <article class="container">
-      <header class="header">
-        <h1>Extension Compatibility Tester</h1>
-      </header>
-      <section class="processing-status">
+    <header class="header">
+      <h1 class="masthead">
+        Extension Compatibility Tester
+      </h1>
+    </header>
+
+    <div class="row highlight">
+      <section class="processing-status section">
         <h1 class="status"></h1>
       </section>
-      <section class="report">
+    </div>
+
+    <div class="row results highlight">
+      <section class="section">
         <header class="report-summary">
         </header>
         <details>
           <summary>
-            <h2>Report Details</h2>
+            <h3>Report Details</h3>
           </summary>
           <pre class="report-details"></pre>
         </details>
       </section>
-    </article>
+    </div>
+
+    <div class="row results next-steps">
+      <section class="section">
+        <h1>What's Next?</h1>
+        <ol>
+          <li>
+            <h2>Test Your Extension in Firefox</h2>
+            <p>
+              We created this tool to help you find and fix compatibility
+              issues, but nothing beats some good old-fashioned testing in the
+              browser. Take time to check the appearance or functionality of
+              your extension to ensure it meets your expectations.
+            </p>
+          </li>
+          <li>
+            <h2>Package Your Extension</h2>
+          </li>
+        </ol>
+      </section>
+    </div>
+
+    <div class="row footer highlight">
+      <footer class="section">
+        This tool provided with &hearts; by Mozilla.
+      </footer>
+    </div>
 
     <script src="/dom.js"></script>
     <script>
@@ -41,7 +74,7 @@
             }
 
             if (status.state === 'complete') {
-              document.querySelector('.container').classList.add('complete');
+              document.querySelector('body').classList.add('complete');
 
               let results = Object.entries(status.results).reduce((result, [type, entries]) => {
                 result[type] = Object.values(entries.reduce((result, entry) => {
@@ -62,7 +95,7 @@
 
               showReport(results);
             } else if (status.state === 'error') {
-              document.querySelector('.container').classList.add('complete');
+              document.querySelector('body').classList.add('complete');
               showError(status.error);
             } else {
               setTimeout(checkStatus, 1000);
