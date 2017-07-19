@@ -68,5 +68,5 @@ app.get('/status/:id', function (req, res) {
 port = process.env.PORT || 8080;
 
 app.listen(port, function () {
-  console.log('Listening');
+  console.log(`Listening on localhost:${port}`);
 })
