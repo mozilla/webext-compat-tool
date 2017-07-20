@@ -1,0 +1,41 @@
+// ----------------------------------------------------------------------------
+// Buttons
+// ----------------------------------------------------------------------------
+
+button,
+.button {
+  @include typesize(0);
+  display: inline-block;
+  font-weight: bold;
+  border-radius: 2px;
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,.3);
+  line-height: inherit;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  padding: spacing(1) spacing(3);
+  border: 2px solid transparent;
+  background: $green;
+  transition: all $base-time $base-ease;
+  text-decoration: none;
+  color: $white;
+
+  &:active,
+  &:hover,
+  &:focus {
+    background: darken($green, 5%);
+    text-decoration: none;
+    outline: 0;
+    background-image: none;
+  }
+
+  &.is-ready {
+    display: block;
+  }
+
+  &.is-hidden {
+    display: none;
+  }
+}

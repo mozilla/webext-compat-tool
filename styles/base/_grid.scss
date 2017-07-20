@@ -1,0 +1,127 @@
+// ----------------------------------------------------------------------------
+// Grids
+// ----------------------------------------------------------------------------
+
+// Uses susy grid 3 for grid math and mappy-breakpoints for simple syntax
+// Some bootstrap-style helper classes included for rapid prototyping
+
+
+// Susy Configuration
+$susy: (
+  'columns': susy-repeat(12),
+  'gutters': .2,
+  'spread': 'narrow',
+  'container-spread': 'wide',
+);
+
+
+.container {
+  @include clearfix;
+  margin: 0 auto;
+  padding: 0 10px;
+
+  @include bp(small) {
+    padding: 0;
+    width: (map-get($breakpoints, small));
+  }
+
+  @include bp(medium) {
+    width: (map-get($breakpoints, medium));
+  }
+
+  @include bp(large) {
+    width: (map-get($breakpoints, large));
+  }
+}
+
+
+// Breakpoint specific column classes
+// ----------------------------------
+
+// columns for x-small+
+// ex: col-xs-8 or col-xs-3
+@for $i from 0 through 12 {
+  .col-xs-#{$i} {
+    width: 100%;
+  }
+}
+
+// columns for small+
+// ex: col-sm-8 or col-sm-3
+@for $i from 1 through 12 {
+  .col-sm-#{$i} {
+    width: span(12);
+
+    @include bp(small) {
+      float: left;
+      width: span($i);
+    }
+  }
+}
+
+// columns for medium+
+// ex: col-md-8 or col-md-3
+@for $i from 1 through 12 {
+  .col-md-#{$i} {
+    width: span(12);
+
+    @include bp(medium) {
+      float: left;
+      width: span($i);
+    }
+
+  }
+}
+
+// columns for large+
+// ex: col-lg-8 or col-lg-3
+@for $i from 1 through 12 {
+  .col-lg-#{$i} {
+    width: span(12);
+
+    @include bp(large) {
+      float: left;
+      width: span($i);
+    }
+
+  }
+}
+
+
+// offset (push) columns for x-small+
+// ex: col-xs-offset-8 or col-xs-offset-3
+@for $i from 1 through 12 {
+  .col-xs-offset-#{$i} {
+    margin-left: span($i);
+  }
+}
+
+// offset (push) columns for small+
+// ex: col-sm-offset-8 or col-sm-offset-3
+@for $i from 1 through 12 {
+  .col-sm-offset-#{$i} {
+    @include bp(small) {
+      margin-left: span($i);
+    }
+  }
+}
+
+// offset (push) columns for medium+
+// ex: col-md-offset-8 or col-md-offset-3
+@for $i from 1 through 12 {
+  .col-md-offset-#{$i} {
+    @include bp(medium) {
+      margin-left: span($i);
+    }
+  }
+}
+
+// offset (push) columns for large+
+// ex: col-lg-offset-8 or col-lg-offset-3
+@for $i from 1 through 12 {
+  .col-lg-offset-#{$i} {
+    @include bp(large) {
+      margin-left: span($i);
+    }
+  }
+}

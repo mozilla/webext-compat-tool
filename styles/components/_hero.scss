@@ -1,0 +1,13 @@
+.hero {
+  background-color: $primary;
+  color: $white;
+  padding: space(8);
+  background-image: url('img/hero-bg.svg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  padding: 70px 20px 80px;
+}
+
+.hero--full {
+  height: 100vh;
+}

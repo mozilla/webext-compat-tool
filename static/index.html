@@ -3,29 +3,34 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://code.cdn.mozilla.net/fonts/fira.css">
-    <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/styles.css">
     <title>Extension Compatibility Tester</title>
   </head>
   <body>
-    <header class="header">
-      <h1 class="masthead">
-        Extension Compatibility Tester
-      </h1>
-    </header>
 
-    <div class="row highlight">
-      <section class="section upload">
-        <form ref='uploadForm' id='uploadForm' action='/upload'
-              method='post' encType="multipart/form-data">
-          <input type="file" name="package" id="fileField"/>
-          <button class="file-select">Select File&hellip;</button>
-          <div class="file-ready">
-            <h3 class="selected-file"></h3>
-            <button class="form-submit">Upload</button>
-          </div>
-        </form>
-      </section>
+    <div class="hero hero--full text-center">
+      <div class="container">
+        <h1 class="hero__title">Extension Compatibility Test for Firefox</h1>
+        <div class="col-md-6 col-md-offset-3">
+          <p>
+            Use this tool to test your extension’s compatibility with Firefox!
+            To receive a report, upload your .crx file. We’ll also provide you with
+            resources and instructions on submitting it to addons.mozilla.org (AMO).
+          </p>
+          <!-- <button class="hero__button mt2">Select .CRX File</button> -->
+
+          <section class="upload mt4">
+            <form ref='uploadForm' id='uploadForm' action='/upload'
+                  method='post' encType="multipart/form-data">
+              <input type="file" name="package" id="fileField"/>
+              <button class="upload__button upload__button--select">Select .CRX File</button>
+              <button class="upload__button upload__button--upload">Submit .CRX File</button>
+              <h4 class="selected-file mt2"></h4>
+            </form>
+          </section>
+
+        </div>
+      </div>
     </div>
 
     <div class="row footer highlight">
@@ -36,24 +41,20 @@
 
     <script>
       window.addEventListener('load', function (e) {
-        let fileButton = document.querySelector('.file-select');
+        let fileButton = document.querySelector('.upload__button--select');
         let fileInput = document.querySelector('#fileField');
-
         fileButton.addEventListener('click', function (e) {
           fileInput.click();
           e.preventDefault();
         });
-
         fileInput.addEventListener('change', function (e) {
           if (e.target.files.length) {
             console.log(e.target.files);
-            document.querySelector('.upload').classList.add('ready');
+            document.querySelector('.upload').classList.add('is-ready');
             document.querySelector('.selected-file').innerHTML = 'selected file: ' + e.target.files[0].name
           }
         });
-
       });
-
     </script>
   </body>
 </html>
