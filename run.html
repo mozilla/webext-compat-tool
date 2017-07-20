@@ -4,20 +4,30 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://code.cdn.mozilla.net/fonts/fira.css">
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/styles.css">
     <title>Extension Compatibility Tester</title>
   </head>
   <body>
+    <!-- LOADING SCREEN -->
+    <section class="status">
+      <div class="container">
+        <h1 class="hero__title">Extension Compatibility Test for Firefox</h1>
+        <div class="status__animation">
+        	<div class="status__spinner"></div>
+        </div>
+        <div class="col-md-6 col-md-offset-3">
+          <h3 class="status__message mt4"></h3>
+          <p class="status__notice mt4"></p>
+        </div>
+      </div>
+    </section>
+    <!-- END LOADING SCREEN -->
+
     <header class="header">
       <h1 class="masthead">
         Extension Compatibility Tester
       </h1>
     </header>
-
-    <div class="row highlight">
-      <section class="processing-status section">
-        <h1 class="status"></h1>
-      </section>
-    </div>
 
     <div class="row results highlight">
       <section class="section">
@@ -68,13 +78,17 @@
           .then(r => r.json())
           .then(status => {
             if (status.state === 'waiting') {
-              document.querySelector('.status').innerHTML = 'Waiting in line for a linter to become available&hellip;';
+              document.querySelector('.status__message').innerHTML = 'Waiting in line for a linter to become available';
+            } else if (status.state === 'running') {
+              document.querySelector('.status__message').innerHTML = 'Uploading and evaluating your extension';
+              document.querySelector('.status__notice').innerHTML = '(This may take a minute for larger extensions)';
             } else {
-              document.querySelector('.status').innerHTML = status.state;
+              document.querySelector('.status__message').innerHTML = status.state;
             }
 
             if (status.state === 'complete') {
               document.querySelector('body').classList.add('complete');
+              document.querySelector('.status').classList.add('is-complete');
 
               let results = Object.entries(status.results).reduce((result, [type, entries]) => {
                 result[type] = Object.values(entries.reduce((result, entry) => {
