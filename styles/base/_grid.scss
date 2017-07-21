@@ -92,7 +92,7 @@ $susy: (
 // ex: col-xs-offset-8 or col-xs-offset-3
 @for $i from 1 through 12 {
   .col-xs-offset-#{$i} {
-    margin-left: span($i);
+    margin-left: span($i wide) + gutter() / 2;;
   }
 }
 
@@ -101,7 +101,7 @@ $susy: (
 @for $i from 1 through 12 {
   .col-sm-offset-#{$i} {
     @include bp(small) {
-      margin-left: span($i);
+      margin-left: span($i wide) + gutter() / 2;;
     }
   }
 }
@@ -111,7 +111,7 @@ $susy: (
 @for $i from 1 through 12 {
   .col-md-offset-#{$i} {
     @include bp(medium) {
-      margin-left: span($i);
+      margin-left: span($i wide) + gutter() / 2;
     }
   }
 }
@@ -121,7 +121,7 @@ $susy: (
 @for $i from 1 through 12 {
   .col-lg-offset-#{$i} {
     @include bp(large) {
-      margin-left: span($i);
+      margin-left: span($i wide) + gutter() / 2;;
     }
   }
 }

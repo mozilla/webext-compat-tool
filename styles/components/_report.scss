@@ -1,0 +1,26 @@
+.report {
+  padding: space(8) 0;
+}
+
+.report__summary {
+  background-color: rgba(241, 112, 112, 0.1);
+  padding: space(2);
+
+  p {
+    margin-bottom: space(1);
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+  }
+
+  ul.locations {
+    margin-bottom: space(3);
+  }
+
+  ul.locations li {
+    margin-left: space(4);
+    list-style-type: disc;
+  }
+}
