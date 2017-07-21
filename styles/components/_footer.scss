@@ -1,0 +1,14 @@
+.footer {
+  background-color: $black;
+  padding: space(4) 0;
+  color: $white;
+}
+
+.footer__logo {
+  width: 100px;
+}
+
+.footer__list {
+  margin: 0;
+  padding: 0;
+}

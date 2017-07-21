@@ -71,36 +71,58 @@
     <div class="steps">
       <div class="container">
         <h2>Next Steps</h2>
-
+        <ol class="steps__list">
+          <li>
+            <h4>Review and correct possible errors</h4>
+            <p>Errors will prevent  your extension from being accepted on addons.mozilla.org (AMO). Review the above errors and make any necessary changes.</p>
+          </li>
+          <li>
+            <h4>Re-test for compatibility</h4>
+            <p>After you have corrected the possible errors, you can re-upload your .crx file to the extension compatibility tester to re-test for errors. If you believe you are good to go, then skip to the next step.</p>
+          </li>
+          <li>
+            <h4>Test your extension in Firefox</h4>
+            <p>We created this tool to help you find and fix compatibility issues, but nothing beats some good ol’ fashioned testing in the browser. Download the Firefox browser, and load up your extension, and give it a test.</p>
+            <a href="https://www.mozilla.org/en-US/firefox/developer/" target=_blank>Download Firefox Nightly</a></br>
+            <a href="https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Temporary_Installation_in_Firefox" target=_blank>How to temporarily install extensions in Firefox</a>
+          </li>
+          <li>
+            <h4>Publish your extension</h4>
+            <p>Submit your extension to be listed on addons.mozilla.org (AMO) or sign and distribute your extension on your own.</p>
+            <a href="https://oauth.accounts.firefox.com/v1/authorization?action=signin&scope=profile&state=546314609faabd431683ab26827c549f4bb9a06d0ca942d31630b474eab32851%3AL2VuLVVTL2RldmVsb3BlcnMv&redirect_url=https%3A%2F%2Faddons.mozilla.org%2Fapi%2Fv3%2Faccounts%2Fauthenticate%2F&client_id=a4907de5fa9d78fc" target=_blank>Sign in to publish your extension</a>
+          </li>
+        </ol>
       </div>
     </div>
     <!-- END NEXT STEPS -->
 
-    <div class="row results next-steps">
-      <section class="section">
-        <h1>What's Next?</h1>
-        <ol>
-          <li>
-            <h2>Test Your Extension in Firefox</h2>
-            <p>
-              We created this tool to help you find and fix compatibility
-              issues, but nothing beats some good old-fashioned testing in the
-              browser. Take time to check the appearance or functionality of
-              your extension to ensure it meets your expectations.
-            </p>
-          </li>
-          <li>
-            <h2>Package Your Extension</h2>
-          </li>
-        </ol>
-      </section>
+    <!-- START FOOTER -->
+    <div class="footer">
+      <div class="container">
+        <div class="col-md-3">
+          <img class="footer__logo" src="/img/mozilla.svg" />
+        </div>
+        <div class="col-md-5">
+          <h4>Additional Resources:</h4>
+          <ul class="footer__list">
+            <li><a href="#" target="_blank">Extension documentation on MDN</a></li>
+            <li><a href="#" target="_blank">How to port a Chrome extension to Firefox</a></li>
+            <li><a href="#" target="_blank">Contact us</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h4>Find a bug?</h4>
+          <a href="#" target="_blank">Let us know on Github</a>
+        </div>
+        <ul class="footer__legal">
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Cookies</a></li>
+          <li><a href="#">Legal</a></li>
+        </ul>
+        <p>This tool provided with &hearts; by Mozilla.</p>
+      </div>
     </div>
-
-    <div class="row footer highlight">
-      <footer class="section">
-        This tool provided with &hearts; by Mozilla.
-      </footer>
-    </div>
+    <!-- END FOOTER -->
 
     <script src="/dom.js"></script>
     <script>
