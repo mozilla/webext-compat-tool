@@ -1,0 +1,27 @@
+.details {
+  background-color: $gray-light;
+  padding: space(8) 0;
+}
+
+.details summary {
+  cursor: pointer;
+}
+
+.details__title {
+  display: inline;
+  vertical-align: bottom;
+}
+
+.details__expand {
+  margin-left: space(1);
+  position: relative;
+  top: 4px;
+}
+
+.details__report {
+  background-color: #ececec;
+  border-left: space(.5) solid #b1b1b1;
+  padding: space(2);
+  font-size: typesize(-1);
+  margin-top: space(2);
+}

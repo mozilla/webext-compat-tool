@@ -1,0 +1,20 @@
+// Handle showing/hiding upload/select buttons
+#fileField {
+  display: none;
+}
+
+.upload__button {
+  margin: 0 auto;
+}
+
+.upload .upload__button--upload {
+  display: none;
+}
+
+.upload.is-ready .upload__button--upload {
+  display: block;
+}
+
+.upload.is-ready .upload__button--select {
+  display: none;
+}

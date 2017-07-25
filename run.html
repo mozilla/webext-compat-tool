@@ -3,78 +3,149 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://code.cdn.mozilla.net/fonts/fira.css">
-    <link rel="stylesheet" href="/style.css">
+    <!-- <link rel="stylesheet" href="/style.css"> -->
+    <link rel="stylesheet" href="/styles.css">
+    <script src="https://use.fontawesome.com/eae0c29172.js"></script>
     <title>Extension Compatibility Tester</title>
   </head>
   <body>
-    <header class="header">
-      <h1 class="masthead">
-        Extension Compatibility Tester
-      </h1>
-    </header>
+    <!-- LOADING SCREEN -->
+    <section class="status">
+      <div class="container">
+        <h1 class="hero__title">Extension Compatibility Test for Firefox</h1>
+        <div class="status__animation">
+        	<div class="status__spinner"></div>
+        </div>
+        <div class="col-md-6 col-md-offset-3">
+          <h3 class="status__message mt4"></h3>
+          <p class="status__notice mt4"></p>
+        </div>
+      </div>
+    </section>
+    <!-- END LOADING SCREEN -->
 
-    <div class="row highlight">
-      <section class="processing-status section">
-        <h1 class="status"></h1>
-      </section>
+    <!-- START HERO SECTION -->
+    <div class="hero text-center">
+      <div class="container">
+        <h1 class="hero__title">Extension Compatibility Test for Firefox</h1>
+        <i class="fa hero__icon mt6" aria-hidden="true"></i>
+        <div class="col-md-6 col-md-offset-3 mt4">
+          <p class="hero__result"></p>
+        </div>
+        <div class="hero__scroll">
+          <p>Scroll down for your complete report and next steps</p>
+          <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        </div>
+      </div>
     </div>
+    <!-- END HERO SECTION -->
 
-    <div class="row results highlight">
-      <section class="section">
-        <header class="report-summary">
-        </header>
+    <!-- START REPORT SECTION -->
+    <div class="report">
+      <div class="container">
+        <h2 class="report__title"></h2>
+        <p class="mb0 mt4"><strong>What are compatibility issues?</strong></p>
+        <p>Compatibility issues are things that you should probably look into if you want to be listed on addons.mozilla.org (AMO)</p>
+        <div class="report__summary"></div>
+      </div>
+    </div>
+    <!-- END REPORT SECTION -->
+
+    <!-- START DETAILS SECTION -->
+    <div class="details">
+      <div class="container">
         <details>
           <summary>
-            <h3>Report Details</h3>
+            <h2 class="details__title">Report Details</h2>
+            <span class="details__expand">(click to expand)</span>
           </summary>
-          <pre class="report-details"></pre>
+          <pre class="details__report"></pre>
         </details>
-      </section>
+        <p class="mb0 mt4"><strong>What are compatibility issues?</strong></p>
+        <p>Compatibility issues are things that you should probably look into if you want to be listed on addons.mozilla.org (AMO)</p>
+      </div>
     </div>
+    <!-- END DETAILS SECTION -->
 
-    <div class="row results next-steps">
-      <section class="section">
-        <h1>What's Next?</h1>
-        <ol>
+    <!-- START NEXT STEPS -->
+    <div class="steps">
+      <div class="container">
+        <h2>Next Steps</h2>
+        <ol class="steps__list">
           <li>
-            <h2>Test Your Extension in Firefox</h2>
-            <p>
-              We created this tool to help you find and fix compatibility
-              issues, but nothing beats some good old-fashioned testing in the
-              browser. Take time to check the appearance or functionality of
-              your extension to ensure it meets your expectations.
-            </p>
+            <h4>Review and correct possible errors</h4>
+            <p>Errors will prevent  your extension from being accepted on addons.mozilla.org (AMO). Review the above errors and make any necessary changes.</p>
           </li>
           <li>
-            <h2>Package Your Extension</h2>
+            <h4>Re-test for compatibility</h4>
+            <p>After you have corrected the possible errors, you can re-upload your .crx file to the extension compatibility tester to re-test for errors. If you believe you are good to go, then skip to the next step.</p>
+          </li>
+          <li>
+            <h4>Test your extension in Firefox</h4>
+            <p>We created this tool to help you find and fix compatibility issues, but nothing beats some good ol’ fashioned testing in the browser. Download the Firefox browser, and load up your extension, and give it a test.</p>
+            <a href="https://www.mozilla.org/en-US/firefox/developer/" target=_blank>Download Firefox Nightly</a></br>
+            <a href="https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Temporary_Installation_in_Firefox" target=_blank>How to temporarily install extensions in Firefox</a>
+          </li>
+          <li>
+            <h4>Publish your extension</h4>
+            <p>Submit your extension to be listed on addons.mozilla.org (AMO) or sign and distribute your extension on your own.</p>
+            <a href="https://oauth.accounts.firefox.com/v1/authorization?action=signin&scope=profile&state=546314609faabd431683ab26827c549f4bb9a06d0ca942d31630b474eab32851%3AL2VuLVVTL2RldmVsb3BlcnMv&redirect_url=https%3A%2F%2Faddons.mozilla.org%2Fapi%2Fv3%2Faccounts%2Fauthenticate%2F&client_id=a4907de5fa9d78fc" target=_blank>Sign in to publish your extension</a>
           </li>
         </ol>
-      </section>
+      </div>
     </div>
+    <!-- END NEXT STEPS -->
 
-    <div class="row footer highlight">
-      <footer class="section">
-        This tool provided with &hearts; by Mozilla.
-      </footer>
+    <!-- START FOOTER -->
+    <div class="footer">
+      <div class="container">
+        <div class="col-md-3">
+          <img class="footer__logo" src="/img/mozilla.svg" />
+        </div>
+        <div class="col-md-5">
+          <h4>Additional Resources:</h4>
+          <ul class="footer__list">
+            <li><a href="https://developer.mozilla.org/en-US/Add-ons/WebExtensions?utm_source=hacks&utm_medium=social&utm_campaign=webextensions&utm_content=mdn_webextensions" target="_blank">Extension documentation on MDN</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Porting_a_Google_Chrome_extension" target="_blank">How to port a Chrome extension</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/Add-ons#Contact_us" target="_blank">Contact us</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h4>Find a bug?</h4>
+          <a href="https://github.com/mozilla/webext-compat-tool/issues" target="_blank">Let us know on Github</a>
+        </div>
+        <ul class="footer__legal clearfix">
+          <li><a href="https://www.mozilla.org/en-US/privacy/" target="_blank">Privacy</a></li>
+          <li><a href="https://www.mozilla.org/en-US/privacy/websites/#cookies" target="_blank">Cookies</a></li>
+          <li><a href="https://www.mozilla.org/en-US/about/legal/" target="_blank">Legal</a></li>
+        </ul>
+      </div>
     </div>
+    <!-- END FOOTER -->
 
     <script src="/dom.js"></script>
     <script>
 
       var id = location.toString().match(/test\/([a-fA-F0-9-]+)/)[1];
 
+      let finalStatus;
+
       function checkStatus() {
         fetch('/status/' + id)
           .then(r => r.json())
           .then(status => {
             if (status.state === 'waiting') {
-              document.querySelector('.status').innerHTML = 'Waiting in line for a linter to become available&hellip;';
+              document.querySelector('.status__message').innerHTML = 'Waiting in line for a linter to become available';
+            } else if (status.state === 'running') {
+              document.querySelector('.status__message').innerHTML = 'Uploading and evaluating your extension';
+              document.querySelector('.status__notice').innerHTML = '(This may take a minute for larger extensions)';
             } else {
-              document.querySelector('.status').innerHTML = status.state;
+              document.querySelector('.status__message').innerHTML = status.state;
             }
 
             if (status.state === 'complete') {
               document.querySelector('body').classList.add('complete');
+              document.querySelector('.status').classList.add('is-complete');
 
               let results = Object.entries(status.results).reduce((result, [type, entries]) => {
                 result[type] = Object.values(entries.reduce((result, entry) => {
@@ -93,8 +164,10 @@
                 return result;
               }, {});
 
+              finalStatus = results.compat.length ? 'notCompat' : 'compat';
               showReport(results);
             } else if (status.state === 'error') {
+              finalStatus = 'error';
               document.querySelector('body').classList.add('complete');
               showError(status.error);
             } else {
@@ -104,7 +177,7 @@
       }
 
       function showError(error) {
-        let summary = document.querySelector('.report-summary');
+        let summary = document.querySelector('.report__summary');
         let output = d(
           d('h1', 'Error processing your package:'),
           d('h2', error)
@@ -114,24 +187,21 @@
       }
 
       function showReport(results) {
-        let summary = document.querySelector('.report-summary');
-        let details = document.querySelector('.report-details');
+        let summary = document.querySelector('.report__summary');
+        let details = document.querySelector('.details__report');
 
         let report;
         if (results.compat.length) {
+          document.querySelector('.hero__result').innerHTML = 'Your extension may not be compatible with Firefox. Read below to view possible compatibility issues and a full report.';
+          document.querySelector(".hero__icon").classList.add("hero__icon--warning", "fa-exclamation-triangle");
+
+          let reportTitle = `${results.compat.length} compatibility ${results.compat.length > 1 ? 'issues' : 'issue'} found:`
+          document.querySelector(".report__title").innerHTML = reportTitle;
+
           report = d(
-            d('h1', 'This extension may not be compatible with Firefox!'),
-            d('h2',
-              results.compat.length,
-              (results.compat.length > 1 ?
-                ' compatibility issues ' :
-                ' compatibility issue '
-              ),
-              'found:'
-            ),
             d('ul',
               results.compat.map(m => d('li',
-                d('h3', m.message),
+                d('h4', m.message),
                 d('p', 'found in the following locations:'),
                 d('ul', {'class': 'locations'},
                   m.locations.map(l => d('li',
@@ -143,7 +213,8 @@
             )
           );
         } else {
-          report = d('h1', 'This extension is compatible with Firefox!');
+          finalStatus = 'compat';
+          document.querySelector('.hero__result').innerHTML = 'Great news! Your extension is compatible with Firefox.';
         }
 
         summary.appendChild(report.toDom());

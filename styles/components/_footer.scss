@@ -1,0 +1,40 @@
+.footer {
+  background-color: $black;
+  padding: space(4) 0;
+  color: $white;
+
+  a {
+    color: $white;
+  }
+}
+
+.footer__logo {
+  width: 100px;
+}
+
+.footer__list {
+  margin: 0;
+  padding: 0;
+
+  li {
+    margin-bottom: space(1);
+  }
+}
+
+.footer__legal {
+  width: span(all);
+  float: left;
+  border-top: 1px solid rgba(255, 255, 255, 0.32);
+  margin-top: space(2);
+  margin-left: 0;
+
+  li {
+    float: left;
+    display: inline;
+    padding: space(1) space(1) 0 0;
+  }
+
+  li a {
+    @include typesize(-1);
+  }
+}

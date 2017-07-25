@@ -1,0 +1,45 @@
+.hero {
+  background-color: $primary;
+  color: $white;
+  padding: space(8) 0 space(4);
+  background-image: url('img/hero-bg.svg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.hero--full {
+  height: 100vh;
+}
+
+
+.hero__result {
+  font-weight: 600;
+  font-size: typesize(1);
+}
+
+.hero__icon {
+  font-size: 40px !important;
+  display: block !important;
+}
+
+.hero__icon--check {
+  color: $green;
+}
+
+.hero__icon--warning {
+  color: $orange;
+}
+
+.hero__icon--error {
+  color: $red;
+}
+
+
+.hero__scroll {
+  @include clearfix;
+  display: inline-block;
+  margin-top: space(10);
+  width: span(6);
+  margin-left: span(3 wide) + gutter() / 2;
+  float: left;
+}

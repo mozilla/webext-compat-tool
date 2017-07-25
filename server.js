@@ -34,7 +34,7 @@ app.post('/upload', function(req, res) {
       // Use the mv() method to place the file somewhere on your server
       sampleFile.mv(path.join(TEMP_DIR, sampleFile.name), function(err) {
         if (err) {
-          console.log('mv error');
+          console.log(err, 'mv error');
           return res.status(500).send(err);
         }
 
@@ -68,5 +68,5 @@ app.get('/status/:id', function (req, res) {
 port = process.env.PORT || 8080;
 
 app.listen(port, function () {
-  console.log('Listening');
+  console.log(`Listening on localhost:${port}`);
 })
