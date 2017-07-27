@@ -7,6 +7,15 @@
   margin: 0 auto;
 }
 
+.upload__button--select {
+  background-color: $white;
+  color: $black;
+
+  &:hover {
+    background-color: darken($white, 15%);
+  }
+}
+
 .upload .upload__button--upload {
   display: none;
 }
