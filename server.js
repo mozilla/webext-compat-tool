@@ -56,7 +56,11 @@ app.get('/test/:id', function(req, res) {
       return fs.readFile(path.join(__dirname, 'run.html'));
     })
     .then(res.end.bind(res))
-    .catch(e => res.end(e));
+    .catch(e => {
+      fs.readFile(path.join(__dirname, '404.html'))
+        .then(res.end.bind(res))
+        .catch(e => res.end(e));
+    });
 });
 
 app.get('/status/:id', function (req, res) {
