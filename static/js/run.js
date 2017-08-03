@@ -88,7 +88,9 @@ function showReport(results) {
     finalStatus = 'compat';
     document.body.classList.add('result--compat');
     report = d();
-    document.querySelector('.hero__result').innerHTML = '<h2>Great news! Your extension is compatible with Firefox.</h2>';
+    let result = d('h2', 'Great news! Your extension is compatible with Firefox.')
+    document.querySelector('.hero__result').append(result.toDom());
+    document.querySelector(".hero__icon").classList.add("hero__icon--check", "fa-check-circle");
   }
 
   summary.appendChild(report.toDom());
