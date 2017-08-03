@@ -86,6 +86,7 @@ function showReport(results) {
     );
   } else {
     finalStatus = 'compat';
+    document.body.classList.add('result--compat');
     report = d();
     document.querySelector('.hero__result').innerHTML = '<h2>Great news! Your extension is compatible with Firefox.</h2>';
   }
