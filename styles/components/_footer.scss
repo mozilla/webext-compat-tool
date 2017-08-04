@@ -9,6 +9,15 @@
   }
 }
 
+.footer h4 {
+
+  margin-top: space(4);
+
+  @include bp(medium) {
+    margin-top: 0;
+  }
+}
+
 .footer__logo {
   width: 100px;
 }
