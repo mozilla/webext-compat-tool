@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://code.cdn.mozilla.net/fonts/fira.css">
-    <!-- <link rel="stylesheet" href="/style.css"> -->
     <link rel="stylesheet" href="/styles.css">
     <script src="https://use.fontawesome.com/eae0c29172.js"></script>
     <title>Extension Compatibility Tester</title>
@@ -31,7 +30,7 @@
         <img class="hero__logo" src="/img/fflogo.png" alt="Firefox Logo"  />
         <h1 class="hero__title">Extension Compatibility Test for Firefox</h1>
         <i class="fa hero__icon mt6" aria-hidden="true"></i>
-        <div class="col-md-6 col-md-offset-3 mt4">
+        <div class="col-md-10 col-md-offset-1 mt4">
           <p class="hero__result"></p>
         </div>
         <div class="hero__scroll">
@@ -63,8 +62,6 @@
           </summary>
           <pre class="details__report"></pre>
         </details>
-        <p class="mb0 mt4"><strong>What are compatibility issues?</strong></p>
-        <p>Compatibility issues are things that you should probably look into if you want to be listed on addons.mozilla.org (AMO)</p>
       </div>
     </div>
     <!-- END DETAILS SECTION -->
@@ -125,106 +122,7 @@
     </div>
     <!-- END FOOTER -->
 
-    <script src="/dom.js"></script>
-    <script>
-
-      var id = location.toString().match(/test\/([a-fA-F0-9-]+)/)[1];
-
-      let finalStatus;
-
-      function checkStatus() {
-        fetch('/status/' + id)
-          .then(r => r.json())
-          .then(status => {
-            if (status.state === 'waiting') {
-              document.querySelector('.status__message').innerHTML = 'Waiting in line for a linter to become available';
-            } else if (status.state === 'running') {
-              document.querySelector('.status__message').innerHTML = 'Uploading and evaluating your extension';
-              document.querySelector('.status__notice').innerHTML = '(This may take a minute for larger extensions)';
-            } else {
-              document.querySelector('.status__message').innerHTML = status.state;
-            }
-
-            if (status.state === 'complete') {
-              document.querySelector('body').classList.add('complete');
-              document.querySelector('.status').classList.add('is-complete');
-
-              let results = Object.entries(status.results).reduce((result, [type, entries]) => {
-                result[type] = Object.values(entries.reduce((result, entry) => {
-                  if (!result[entry.message]) {
-                    result[entry.message] = {
-                      message: entry.message,
-                      locations: []
-                    };
-                  }
-                  result[entry.message].locations.push({
-                    file: entry.file,
-                    line: entry.line
-                  });
-                  return result;
-                }, {}));
-                return result;
-              }, {});
-
-              finalStatus = results.compat.length ? 'notCompat' : 'compat';
-              showReport(results);
-            } else if (status.state === 'error') {
-              finalStatus = 'error';
-              document.querySelector('body').classList.add('complete');
-              showError(status.error);
-            } else {
-              setTimeout(checkStatus, 1000);
-            }
-          });
-      }
-
-      function showError(error) {
-        let summary = document.querySelector('.report__summary');
-        let output = d(
-          d('h1', 'Error processing your package:'),
-          d('h2', error)
-        );
-
-        summary.appendChild(output.toDom());
-      }
-
-      function showReport(results) {
-        let summary = document.querySelector('.report__summary');
-        let details = document.querySelector('.details__report');
-
-        let report;
-        if (results.compat.length) {
-          document.querySelector('.hero__result').innerHTML = 'Your extension may not be compatible with Firefox. Read below to view possible compatibility issues and a full report.';
-          document.querySelector(".hero__icon").classList.add("hero__icon--warning", "fa-exclamation-triangle");
-
-          let reportTitle = `${results.compat.length} compatibility ${results.compat.length > 1 ? 'issues' : 'issue'} found:`
-          document.querySelector(".report__title").innerHTML = reportTitle;
-
-          report = d(
-            d('ul',
-              results.compat.map(m => d('li',
-                d('h4', m.message),
-                d('p', 'found in the following locations:'),
-                d('ul', {'class': 'locations'},
-                  m.locations.map(l => d('li',
-                    l.file,
-                    (l.line ? ':' + l.line : '')
-                  ))
-                )
-              ))
-            )
-          );
-        } else {
-          finalStatus = 'compat';
-          document.querySelector('.hero__result').innerHTML = 'Great news! Your extension is compatible with Firefox.';
-        }
-
-        summary.appendChild(report.toDom());
-
-        details.innerHTML = JSON.stringify(results, null, 2);
-      }
-
-      checkStatus();
-    </script>
+    <script src="/js/dom.js"></script>
+    <script src="/js/run.js"></script>
   </body>
 </html>

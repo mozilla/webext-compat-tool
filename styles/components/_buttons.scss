@@ -18,7 +18,7 @@ button,
   padding: spacing(1) spacing(3);
   border: 2px solid transparent;
   background: $green;
-  transition: all $base-time $base-ease;
+  transition: background $base-time $base-ease;
   text-decoration: none;
   color: $white;
 
@@ -28,6 +28,7 @@ button,
     background: darken($green, 5%);
     text-decoration: none;
     outline: 0;
+    color: $white;
     background-image: none;
   }
 

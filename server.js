@@ -10,6 +10,16 @@ const TEMP_DIR = path.join(__dirname, ".temp");
 
 const store = require('./lib/store');
 
+app.use(function(req, res, next) {
+  if (!process.env.DEVELOPMENT) {
+    res.header('Content-Security-Policy', "default-src 'none'; connect-src 'self'; img-src 'self'; script-src 'self' use.fontawesome.com 'unsafe-eval' cdn.fontawesome.com; style-src 'self' code.cdn.mozilla.net use.fontawesome.com; font-src code.cdn.mozilla.net use.fontawesome.com");
+  }
+  res.header('X-Frame-Options', 'DENY');
+  res.header('X-Content-Type-Options', 'nosniff');
+  res.header('X-XSS-Protection', '1; mode=block');
+  next();
+});
+
 // default options
 app.use(fileUpload());
 
@@ -55,8 +65,18 @@ app.get('/test/:id', function(req, res) {
     .then(function (r) {
       return fs.readFile(path.join(__dirname, 'run.html'));
     })
-    .then(res.end.bind(res))
-    .catch(e => res.end(e));
+    .then(file => {
+      res.type('html');
+      res.end(file);
+    })
+    .catch(e => {
+      fs.readFile(path.join(__dirname, '404.html'))
+        .then(file => {
+          res.type('html');
+          res.end(file);
+        })
+        .catch(e => res.end(e));
+    });
 });
 
 app.get('/status/:id', function (req, res) {
