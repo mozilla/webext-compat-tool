@@ -48,3 +48,12 @@
   margin-left: span(3 wide) + gutter() / 2;
   float: left;
 }
+
+.hero__learn {
+  color: $white;
+  text-decoration: underline;
+
+  &:hover {
+    color: darken($white, 20%);
+  }
+}
