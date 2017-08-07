@@ -26,7 +26,7 @@ app.use(fileUpload());
 app.use(express.static('static'));
 
 app.get('/', function(req, res) {
-  res.redirect('/index.html');
+  sendPage(res, 'index.html');
 });
 
 app.post('/upload', function(req, res) {
@@ -62,22 +62,24 @@ app.post('/upload', function(req, res) {
 app.get('/test/:id', function(req, res) {
   const id = req.params.id;
   store.get(id)
-    .then(function (r) {
-      return fs.readFile(path.join(__dirname, 'run.html'));
-    })
-    .then(file => {
-      res.type('html');
-      res.end(file);
-    })
+    .then(r => sendPage(res, 'run.html'))
     .catch(e => {
-      fs.readFile(path.join(__dirname, '404.html'))
-        .then(file => {
-          res.type('html');
-          res.end(file);
-        })
-        .catch(e => res.end(e));
+      sendPage(res, '404.html').catch(e => res.end(e));
     });
 });
+
+function sendPage(res, file) {
+  console.log(file);
+  return Promise.all([
+    fs.readFile(path.join(__dirname, 'views', file)).then(s => s.toString('utf8')),
+    fs.readFile(path.join(__dirname, 'views', 'footer.html')).then(s => s.toString('utf8'))
+  ]).then(([content, footer]) => {
+    res.type('html');
+    res.end(content.toString('utf8').replace('<!-- FOOTER -->', footer.toString('utf8')));
+  }).catch(e => {
+    res.end('an error occurred.');
+  });
+}
 
 app.get('/status/:id', function (req, res) {
   store.get(req.params.id)
