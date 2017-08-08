@@ -13,6 +13,7 @@ const store = require('./lib/store');
 app.use(function(req, res, next) {
   if (!process.env.DEVELOPMENT) {
     res.header('Content-Security-Policy', "default-src 'none'; connect-src 'self'; img-src 'self'; script-src 'self' use.fontawesome.com 'unsafe-eval' cdn.fontawesome.com; style-src 'self' code.cdn.mozilla.net use.fontawesome.com; font-src code.cdn.mozilla.net use.fontawesome.com");
+    res.header('Strict-Transport-Security: max-age=63072000');
   }
   res.header('X-Frame-Options', 'DENY');
   res.header('X-Content-Type-Options', 'nosniff');
