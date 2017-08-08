@@ -78,7 +78,6 @@ app.get('/test/:id', function(req, res) {
 });
 
 function sendPage(res, file) {
-  console.log(file);
   return Promise.all([
     fs.readFile(path.join(__dirname, 'views', file)).then(s => s.toString('utf8')),
     fs.readFile(path.join(__dirname, 'views', 'footer.html')).then(s => s.toString('utf8'))
