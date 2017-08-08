@@ -10,11 +10,19 @@ const TEMP_DIR = path.join(__dirname, ".temp");
 
 const store = require('./lib/store');
 
+if (!process.env.DEVELOPMENT) {
+  app.use((req, res, next) => {
+    if (req.header('x-forwarded-proto') !== 'https') {
+      res.redirect(`https://${req.header('host')}${req.url}`);
+      res.header('Content-Security-Policy', "default-src 'none'; connect-src 'self'; img-src 'self'; script-src 'self' use.fontawesome.com 'unsafe-eval' cdn.fontawesome.com; style-src 'self' code.cdn.mozilla.net use.fontawesome.com; font-src code.cdn.mozilla.net use.fontawesome.com");
+      res.header('Strict-Transport-Security', 'max-age=63072000');
+    } else {
+      next();
+    }
+  });
+})
+
 app.use(function(req, res, next) {
-  if (!process.env.DEVELOPMENT) {
-    res.header('Content-Security-Policy', "default-src 'none'; connect-src 'self'; img-src 'self'; script-src 'self' use.fontawesome.com 'unsafe-eval' cdn.fontawesome.com; style-src 'self' code.cdn.mozilla.net use.fontawesome.com; font-src code.cdn.mozilla.net use.fontawesome.com");
-    res.header('Strict-Transport-Security', 'max-age=63072000');
-  }
   res.header('X-Frame-Options', 'DENY');
   res.header('X-Content-Type-Options', 'nosniff');
   res.header('X-XSS-Protection', '1; mode=block');
