@@ -14,9 +14,9 @@ if (!process.env.DEVELOPMENT) {
   app.use((req, res, next) => {
     if (req.headers['x-forwarded-proto'] !== 'https') {
       res.redirect(`https://${req.header('host')}${req.url}`);
+    } else {
       res.header('Content-Security-Policy', "default-src 'none'; connect-src 'self'; img-src 'self'; script-src 'self' use.fontawesome.com 'unsafe-eval' cdn.fontawesome.com; style-src 'self' code.cdn.mozilla.net use.fontawesome.com; font-src code.cdn.mozilla.net use.fontawesome.com");
       res.header('Strict-Transport-Security', 'max-age=63072000');
-    } else {
       next();
     }
   });
