@@ -51,12 +51,15 @@ function checkStatus() {
 
 function showError(error) {
   let summary = document.querySelector('.report__summary');
-  let output = d(
-    d('h1', 'Error processing your package:'),
+  let result = d(
+    d('h1', 'Error processing your package'),
     d('h2', error)
   );
 
-  summary.appendChild(output.toDom());
+  document.querySelector('.hero__result').append(result.toDom());
+  document.querySelector(".hero__icon").classList.add("hero__icon--warning", "fa-exclamation-triangle");
+
+  document.querySelector('.details__report').innerHTML = JSON.stringify(results, null, 2);
 }
 
 function showReport(results) {
