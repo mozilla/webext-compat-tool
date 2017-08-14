@@ -108,8 +108,9 @@ app.get('/stats', function (req, res) {
 
 app.get('/pulse', function (req, res) {
   store.get('pulse', []).then(data => {
+    console.log(data);
     res.json(data);
-  }).catch(e => res.end(e));
+  }).catch(e => res.end(e.toString()));
 });
 
 setInterval(function () {
