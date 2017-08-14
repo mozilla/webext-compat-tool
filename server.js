@@ -106,6 +106,26 @@ app.get('/stats', function (req, res) {
   }).catch(e => res.end(e));
 });
 
+app.get('/pulse', function (req, res) {
+  store.get('pulse', []).then(data => {
+    res.json(data);
+  }).catch(e => res.end(e));
+});
+
+setInterval(function () {
+  Promise.all([
+    store.get('tests_run', 0),
+    store.get('tests_passed', 0),
+    store.get('tests_failed', 0),
+    store.get('tests_errored', 0)
+  ]).then(([total, passed, failed, errors]) => {
+    store.enqueue(
+      'pulse',
+      {time: Date.now(), total, passed, failed, errors}
+    );
+  });
+}, 1000 * 60 * 5);
+
 port = process.env.PORT || 8080;
 
 app.listen(port, function () {
