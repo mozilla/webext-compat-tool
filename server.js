@@ -108,7 +108,7 @@ app.get('/stats', function (req, res) {
 
 app.get('/pulse', function (req, res) {
   store.getLast('pulse', 100).then(data => {
-    console.log(data);
+    res.header('Access-Control-Allow-Origin', '*');
     res.json(data);
   }).catch(e => res.end(e.toString()));
 });
