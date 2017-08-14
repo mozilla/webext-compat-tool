@@ -11,8 +11,6 @@ function checkStatus() {
       } else if (status.state === 'running') {
         document.querySelector('.status__message').innerHTML = 'Uploading and evaluating your extension';
         document.querySelector('.status__notice').innerHTML = '(This may take a minute for larger extensions)';
-      } else {
-        document.querySelector('.status__message').innerHTML = status.state;
       }
 
       if (status.state === 'complete') {
@@ -39,6 +37,9 @@ function checkStatus() {
         finalStatus = results.compat.length ? 'notCompat' : 'compat';
         showReport(results);
       } else if (status.state === 'error') {
+        document.querySelector('body').classList.add('complete');
+        document.querySelector('.status').classList.add('is-complete');
+
         finalStatus = 'error';
         document.querySelector('body').classList.add('complete');
         showError(status.error);
