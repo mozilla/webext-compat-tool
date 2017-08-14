@@ -107,7 +107,7 @@ app.get('/stats', function (req, res) {
 });
 
 app.get('/pulse', function (req, res) {
-  store.get('pulse', []).then(data => {
+  store.getLast('pulse', 100).then(data => {
     console.log(data);
     res.json(data);
   }).catch(e => res.end(e.toString()));
