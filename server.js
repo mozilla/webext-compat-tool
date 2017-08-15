@@ -125,7 +125,7 @@ setInterval(function () {
       {time: Date.now(), total, passed, failed, errors}
     );
   });
-}, 1000 * 60 * 5);
+}, 1000 * 60 * 60);
 
 port = process.env.PORT || 8080;
 
