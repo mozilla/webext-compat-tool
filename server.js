@@ -102,6 +102,7 @@ app.get('/stats', function (req, res) {
     store.get('tests_failed', 0),
     store.get('tests_errored', 0)
   ]).then(([total, passed, failed, errors]) => {
+    res.header('Access-Control-Allow-Origin', '*');
     res.json({total, passed, failed, errors});
   }).catch(e => res.end(e));
 });
