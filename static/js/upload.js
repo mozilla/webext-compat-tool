@@ -12,4 +12,5 @@ window.addEventListener('load', function (e) {
       document.querySelector('.selected-file').innerHTML = 'selected file: ' + e.target.files[0].name
     }
   });
+  ga('send', 'event', 'Page Visibility', 'track', 'Index Page');
 });
