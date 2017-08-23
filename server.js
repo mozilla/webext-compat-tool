@@ -68,6 +68,7 @@ app.post('/upload', function(req, res) {
               }
             });
           }
+          check();
         })
     )
     .then(function() {
