@@ -2,11 +2,11 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const app = express();
 const fs = require('fs-extra');
-const path = require("path");
+const path = require('path');
 const queue = require('./lib/queue');
-const uuid = require("uuid/v1");
+const uuid = require('uuid/v1');
 
-const TEMP_DIR = path.join(__dirname, ".temp");
+const TEMP_DIR = path.join(__dirname, '.temp');
 
 const store = require('./lib/store');
 
@@ -15,7 +15,10 @@ if (!process.env.DEVELOPMENT) {
     if (req.headers['x-forwarded-proto'] !== 'https') {
       res.redirect(`https://${req.header('host')}${req.url}`);
     } else {
-      res.header('Content-Security-Policy', "default-src 'none'; connect-src 'self' www.google-analytics.com; img-src 'self' www.google-analytics.com; script-src 'self' use.fontawesome.com 'unsafe-eval' cdn.fontawesome.com www.google-analytics.com; style-src 'self' code.cdn.mozilla.net use.fontawesome.com; font-src code.cdn.mozilla.net use.fontawesome.com");
+      res.header(
+        'Content-Security-Policy',
+        "default-src 'none'; connect-src 'self' www.google-analytics.com; img-src 'self' www.google-analytics.com; script-src 'self' use.fontawesome.com 'unsafe-eval' cdn.fontawesome.com www.google-analytics.com; style-src 'self' code.cdn.mozilla.net use.fontawesome.com; font-src code.cdn.mozilla.net use.fontawesome.com"
+      );
       res.header('Strict-Transport-Security', 'max-age=63072000');
       next();
     }
@@ -39,19 +42,37 @@ app.get('/', function(req, res) {
 });
 
 app.post('/upload', function(req, res) {
-  if (!req.files)
-    return res.status(400).send('No files were uploaded.');
+  if (!req.files) return res.status(400).send('No files were uploaded.');
 
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   let sampleFile = req.files.package;
 
   let id = uuid();
 
-  store.set(id, { state: 'created' })
+  let tempPackagePath = path.join(TEMP_DIR, sampleFile.name);
+
+  store
+    .set(id, { state: 'created' })
     .then(fs.ensureDir(TEMP_DIR))
-    .then(function () {
+    .then(
+      () =>
+        new Promise((resolve, reject) => {
+          let tries = 3;
+          function check() {
+            tries--;
+            fs.pathExists(tempPackagePath).then(resolve).catch(() => {
+              if (tries) {
+                check();
+              } else {
+                reject('file upload failed');
+              }
+            });
+          }
+        })
+    )
+    .then(function() {
       // Use the mv() method to place the file somewhere on your server
-      sampleFile.mv(path.join(TEMP_DIR, sampleFile.name), function(err) {
+      sampleFile.mv(tempPackagePath, function(err) {
         if (err) {
           console.log(err, 'mv error');
           return res.status(500).send(err);
@@ -63,73 +84,81 @@ app.post('/upload', function(req, res) {
           id: id,
           packagePath: path.join(TEMP_DIR, sampleFile.name)
         });
-
       });
-    });
+    })
+    .catch(e => res.end(e));
 });
 
 app.get('/test/:id', function(req, res) {
   const id = req.params.id;
-  store.get(id)
-    .then(r => sendPage(res, 'run.html'))
-    .catch(e => {
-      sendPage(res, '404.html').catch(e => res.end(e));
-    });
+  store.get(id).then(r => sendPage(res, 'run.html')).catch(e => {
+    sendPage(res, '404.html').catch(e => res.end(e));
+  });
 });
 
 function sendPage(res, file) {
   return Promise.all([
-    fs.readFile(path.join(__dirname, 'views', file)).then(s => s.toString('utf8')),
-    fs.readFile(path.join(__dirname, 'views', 'footer.html')).then(s => s.toString('utf8'))
-  ]).then(([content, footer]) => {
-    res.type('html');
-    res.end(content.toString('utf8').replace('<!-- FOOTER -->', footer.toString('utf8')));
-  }).catch(e => {
-    res.end('an error occurred.');
-  });
+    fs
+      .readFile(path.join(__dirname, 'views', file))
+      .then(s => s.toString('utf8')),
+    fs
+      .readFile(path.join(__dirname, 'views', 'footer.html'))
+      .then(s => s.toString('utf8'))
+  ])
+    .then(([content, footer]) => {
+      res.type('html');
+      res.end(
+        content
+          .toString('utf8')
+          .replace('<!-- FOOTER -->', footer.toString('utf8'))
+      );
+    })
+    .catch(e => {
+      res.end('an error occurred.');
+    });
 }
 
-app.get('/status/:id', function (req, res) {
-  store.get(req.params.id)
-    .then(r => JSON.stringify(r))
-    .then(res.end.bind(res))
+app.get('/status/:id', function(req, res) {
+  store.get(req.params.id).then(r => JSON.stringify(r)).then(res.end.bind(res));
 });
 
-app.get('/stats', function (req, res) {
+app.get('/stats', function(req, res) {
+  Promise.all([
+    store.get('tests_run', 0),
+    store.get('tests_passed', 0),
+    store.get('tests_failed', 0),
+    store.get('tests_errored', 0)
+  ])
+    .then(([total, passed, failed, errors]) => {
+      res.header('Access-Control-Allow-Origin', '*');
+      res.json({ total, passed, failed, errors });
+    })
+    .catch(e => res.end(e));
+});
+
+app.get('/pulse', function(req, res) {
+  store
+    .getLast('pulse', 100)
+    .then(data => {
+      res.header('Access-Control-Allow-Origin', '*');
+      res.json(data);
+    })
+    .catch(e => res.end(e.toString()));
+});
+
+setInterval(function() {
   Promise.all([
     store.get('tests_run', 0),
     store.get('tests_passed', 0),
     store.get('tests_failed', 0),
     store.get('tests_errored', 0)
   ]).then(([total, passed, failed, errors]) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.json({total, passed, failed, errors});
-  }).catch(e => res.end(e));
-});
-
-app.get('/pulse', function (req, res) {
-  store.getLast('pulse', 100).then(data => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.json(data);
-  }).catch(e => res.end(e.toString()));
-});
-
-setInterval(function () {
-  Promise.all([
-    store.get('tests_run', 0),
-    store.get('tests_passed', 0),
-    store.get('tests_failed', 0),
-    store.get('tests_errored', 0)
-  ]).then(([total, passed, failed, errors]) => {
-    store.enqueue(
-      'pulse',
-      {time: Date.now(), total, passed, failed, errors}
-    );
+    store.enqueue('pulse', { time: Date.now(), total, passed, failed, errors });
   });
 }, 1000 * 60 * 60);
 
 port = process.env.PORT || 8080;
 
-app.listen(port, function () {
+app.listen(port, function() {
   console.log(`Listening on localhost:${port}`);
-})
+});
