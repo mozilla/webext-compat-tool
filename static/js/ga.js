@@ -11,7 +11,7 @@
       ga('require', 'maxScrollTracker');
       ga('require', 'mediaQueryTracker');
       ga('require', 'outboundLinkTracker');
-      ga('require', 'pageVisibilityTracker');
+      // ga('require', 'pageVisibilityTracker');
       ga('require', 'eventTracker');
 
       ga('send', 'pageview');

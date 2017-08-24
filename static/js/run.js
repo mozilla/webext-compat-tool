@@ -1,8 +1,13 @@
 var id = location.toString().match(/test\/([a-fA-F0-9-]+)/)[1];
 
 let finalStatus;
+let gaLoaded = false;
 
 function checkStatus() {
+  if (typeof ga !== 'undefined' && gaLoaded === false) {
+    ga('send', 'event', 'Page Visibility', 'track', 'Evaluating Page');
+    gaLoaded = true;
+  }
   fetch('/status/' + id)
     .then(r => r.json())
     .then(status => {
@@ -37,6 +42,7 @@ function checkStatus() {
         finalStatus = results.compat.length ? 'notCompat' : 'compat';
         showReport(results);
       } else if (status.state === 'error') {
+        ga('send', 'event', 'Page Visibility', 'track', 'Error');
         document.querySelector('body').classList.add('complete');
         document.querySelector('.status').classList.add('is-complete');
 
@@ -68,6 +74,7 @@ function showReport(results) {
 
   let report;
   if (results.compat.length) {
+    ga('send', 'event', 'Page Visibility', 'track', 'Error - Not Compatible page');
     document.querySelector('.hero__result').innerHTML = 'Your extension may not be compatible with Firefox. Read below to view possible compatibility issues and a full report.';
     document.querySelector(".hero__icon").classList.add("hero__icon--warning", "fa-exclamation-triangle");
 
@@ -92,6 +99,7 @@ function showReport(results) {
     finalStatus = 'compat';
     document.body.classList.add('result--compat');
     report = d();
+    ga('send', 'event', 'Page Visibility', 'track', 'Success - Compatible page');
     let result = d('h2', 'Great news! Your extension is compatible with Firefox.')
     document.querySelector('.hero__result').append(result.toDom());
     document.querySelector(".hero__icon").classList.add("hero__icon--check", "fa-check-circle");
