@@ -48,6 +48,7 @@ function checkStatus() {
 
         finalStatus = 'error';
         document.querySelector('body').classList.add('complete');
+        document.body.classList.add('result--compat');
         showError(status.error);
       } else {
         setTimeout(checkStatus, 1000);
@@ -64,8 +65,6 @@ function showError(error) {
 
   document.querySelector('.hero__result').append(result.toDom());
   document.querySelector(".hero__icon").classList.add("hero__icon--warning", "fa-exclamation-triangle");
-
-  document.querySelector('.details__report').innerHTML = JSON.stringify(results, null, 2);
 }
 
 function showReport(results) {

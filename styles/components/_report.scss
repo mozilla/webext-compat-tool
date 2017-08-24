@@ -6,6 +6,12 @@
   display: none;
 }
 
+.result--error {
+  .report, .steps {
+    display: none;
+  }
+}
+
 .report__summary {
   background-color: rgba(241, 112, 112, 0.1);
   padding: space(2);
