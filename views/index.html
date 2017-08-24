@@ -25,7 +25,7 @@
           <section class="upload mt4">
             <form ref='uploadForm' id='uploadForm' action='/upload'
                   method='post' encType="multipart/form-data">
-              <input type="file" name="package" id="fileField"/>
+              <input type="file" name="package" id="fileField" accept=".crx">
               <button ga-on="click" ga-event-category="Select Button" ga-event-action="click" class="upload__button upload__button--select">Select .crx File</button>
               <button ga-on="click" ga-event-category="Submit Button" ga-event-action="click" class="upload__button upload__button--upload">Submit .crx File</button>
               <h4 class="selected-file mt2"></h4>
