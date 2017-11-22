@@ -139,7 +139,7 @@ app.get('/stats', function(req, res) {
 
 app.get('/pulse', function(req, res) {
   store
-    .getLast('pulse', 100)
+    .getLast('pulse', process.env.PULSE_RANGE || 100)
     .then(data => {
       res.header('Access-Control-Allow-Origin', '*');
       res.json(data);
