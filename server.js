@@ -137,6 +137,21 @@ app.get('/stats', function(req, res) {
     .catch(e => res.end(e));
 });
 
+app.get('/compat', function(req, res) {
+  store
+    .getKeys('compat-error:*')
+    .then(keys => Promise.all(
+      keys.map(async k => {
+        return {
+          text: k.substr(13),
+          count: await store.get(k, 0)
+        };
+      })
+    ))
+    .then(results => res.json(results))
+    .catch(e => res.end(e));
+});
+
 app.get('/pulse', function(req, res) {
   store
     .getLast('pulse', process.env.PULSE_RANGE || 100)
