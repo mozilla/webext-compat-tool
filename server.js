@@ -148,7 +148,10 @@ app.get('/compat', function(req, res) {
         };
       })
     ))
-    .then(results => res.json(results))
+    .then(results => {
+      res.header('Access-Control-Allow-Origin', '*');
+      res.json(results);
+    })
     .catch(e => res.end(e));
 });
 
