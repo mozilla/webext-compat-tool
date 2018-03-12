@@ -27,6 +27,7 @@ function checkStatus() {
             if (!result[entry.message]) {
               result[entry.message] = {
                 message: entry.message,
+                description: entry.description,
                 locations: []
               };
             }
@@ -84,6 +85,7 @@ function showReport(results) {
       d('ul',
         results.compat.map(m => d('li',
           d('h4', m.message),
+          d('p', d('i', m.description || '')),
           d('p', 'found in the following locations:'),
           d('ul', {'class': 'locations'},
             m.locations.map(l => d('li',
