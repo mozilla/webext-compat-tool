@@ -1,5 +1,7 @@
 # Web Extension Compatibility Test for Firefox
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/mozilla/webext-compat-tool.svg)](https://greenkeeper.io/)
+
 ## Installation
 
 ```
