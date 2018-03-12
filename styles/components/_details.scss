@@ -3,6 +3,10 @@
   padding: space(8) 0;
 }
 
+.details > .container {
+  position: relative;
+}
+
 .details summary {
   cursor: pointer;
   list-style-type: disclosure-closed;
@@ -28,4 +32,11 @@
   padding: space(2);
   font-size: typesize(-1);
   margin-top: space(2);
+  white-space: pre-wrap;
+}
+
+.details__download {
+  position: absolute;
+  top: 0;
+  right: 0;
 }

@@ -108,7 +108,11 @@ function showReport(results) {
 
   summary.appendChild(report.toDom());
 
-  details.innerHTML = JSON.stringify(results, null, 2);
+  let reportJSON = JSON.stringify(results, null, 2);
+  details.innerText = reportJSON;
+  let reportBlob = new Blob([ reportJSON ], { type : 'application/json' });
+  document.querySelector('.details__download').href = URL.createObjectURL(reportBlob);
+
 }
 
 checkStatus();
