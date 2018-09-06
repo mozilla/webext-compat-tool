@@ -12,15 +12,19 @@ const store = require('./lib/store');
 
 if (!process.env.DEVELOPMENT) {
   app.use((req, res, next) => {
-    if (req.headers['x-forwarded-proto'] !== 'https') {
-      res.redirect(`https://${req.header('host')}${req.url}`);
-    } else {
-      res.header(
-        'Content-Security-Policy',
-        "default-src 'none'; connect-src 'self' www.google-analytics.com; img-src 'self' www.google-analytics.com; script-src 'self' use.fontawesome.com 'unsafe-eval' cdn.fontawesome.com www.google-analytics.com; style-src 'self' code.cdn.mozilla.net use.fontawesome.com; font-src code.cdn.mozilla.net use.fontawesome.com"
-      );
-      res.header('Strict-Transport-Security', 'max-age=63072000');
+    if (req.path.startsWith('/.well-known/acme-challenge/')) {
       next();
+    } else {
+      if (req.headers['x-forwarded-proto'] !== 'https') {
+        res.redirect(`https://${req.header('host')}${req.url}`);
+      } else {
+        res.header(
+          'Content-Security-Policy',
+          "default-src 'none'; connect-src 'self' www.google-analytics.com; img-src 'self' www.google-analytics.com; script-src 'self' use.fontawesome.com 'unsafe-eval' cdn.fontawesome.com www.google-analytics.com; style-src 'self' code.cdn.mozilla.net use.fontawesome.com; font-src code.cdn.mozilla.net use.fontawesome.com"
+        );
+        // res.header('Strict-Transport-Security', 'max-age=63072000');
+        next();
+      }
     }
   });
 }
