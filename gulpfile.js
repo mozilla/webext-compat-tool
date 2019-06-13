@@ -30,32 +30,6 @@ const dist = {
 // Tasks
 // ----------------------------------------------------------------------------------------
 
-// Task: default
-// For Development. Starts server, watches files, hot-reloads
-gulp.task('default', ['watch'], () => {
-});
-
-// Task: build
-// For Prod. Builds scss files.
-gulp.task('build', ['sass-prod'], () => {
-});
-
-// Task: Watch
-// watches sass files and re-compiles on change
-gulp.task('watch', ['browser-sync', 'sass'], () => {
-  gulp.watch(src.sass, ['sass']);
-});
-
-// Task: browser-sync
-// Proxies node server and watches files for hot-reloading
-gulp.task('browser-sync', ['nodemon'], () => {
-	browserSync.init(null, {
-		proxy: "http://localhost:8080",
-        files: ['static/**/*.{html,js,css}'],
-        port: 7000,
-	});
-});
-
 // Task: nodemon
 // starts node server
 gulp.task('nodemon', (cb) => {
@@ -69,6 +43,16 @@ gulp.task('nodemon', (cb) => {
 		}
 	});
 });
+
+// Task: browser-sync
+// Proxies node server and watches files for hot-reloading
+gulp.task('browser-sync', gulp.series('nodemon', () => {
+	browserSync.init(null, {
+		proxy: "http://localhost:8080",
+        files: ['static/**/*.{html,js,css}'],
+        port: 7000,
+	});
+}));
 
 // Task: sass
 // sourcemaps, compile, minify, rename, move to dist
@@ -91,3 +75,20 @@ gulp.task('sass-prod', () => {
     .pipe(cleancss())
     .pipe(gulp.dest(dist.css))
 });
+
+// Task: build
+// For Prod. Builds scss files.
+gulp.task('build', gulp.series('sass-prod', () => {
+}));
+
+// Task: Watch
+// watches sass files and re-compiles on change
+gulp.task('watch', gulp.series('browser-sync', 'sass', () => {
+  gulp.watch(src.sass, 'sass');
+}));
+
+
+// Task: default
+// For Development. Starts server, watches files, hot-reloads
+gulp.task('default', gulp.series('watch', () => {
+}));
