@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/potch/webext-compat-tool#readme",
   "dependencies": {
-    "addons-linter": "^1.10.0",
+    "addons-linter": "^1.10.1",
     "browser-sync": "^2.26.7",
     "chalk": "^2.4.2",
     "express": "^4.17.1",
@@ -38,8 +38,6 @@
     "mappy-breakpoints": "^0.2.3",
     "redis": "^2.8.0",
     "susy": "^3.0.5",
-    "unzip": "^0.1.11",
-    "unzip-crx": "^0.2.0",
     "uuid": "^3.3.2"
   },
   "devDependencies": {}
