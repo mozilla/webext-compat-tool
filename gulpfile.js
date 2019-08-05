@@ -47,7 +47,7 @@ gulp.task('nodemon', (cb) => {
 // Task: browser-sync
 // Proxies node server and watches files for hot-reloading
 gulp.task('browser-sync', gulp.series('nodemon', () => {
-	browserSync.init(null, {
+	return browserSync.init(null, {
 		proxy: "http://localhost:8080",
         files: ['static/**/*.{html,js,css}'],
         port: 7000,
@@ -57,7 +57,7 @@ gulp.task('browser-sync', gulp.series('nodemon', () => {
 // Task: sass
 // sourcemaps, compile, minify, rename, move to dist
 gulp.task('sass', () => {
-  gulp.src(src.sass)
+  return gulp.src(src.sass)
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer())
@@ -69,7 +69,7 @@ gulp.task('sass', () => {
 // Task: sass-prod
 // sourcemaps, compile, minify, rename, move to dist
 gulp.task('sass-prod', () => {
-  gulp.src(src.sass)
+  return gulp.src(src.sass)
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer())
     .pipe(cleancss())
@@ -78,17 +78,15 @@ gulp.task('sass-prod', () => {
 
 // Task: build
 // For Prod. Builds scss files.
-gulp.task('build', gulp.series('sass-prod', () => {
-}));
+gulp.task('build', gulp.series('sass-prod'));
 
 // Task: Watch
 // watches sass files and re-compiles on change
 gulp.task('watch', gulp.series('browser-sync', 'sass', () => {
-  gulp.watch(src.sass, 'sass');
+  return gulp.watch(src.sass, 'sass');
 }));
 
 
 // Task: default
 // For Development. Starts server, watches files, hot-reloads
-gulp.task('default', gulp.series('watch', () => {
-}));
+gulp.task('default', gulp.series('watch'));
