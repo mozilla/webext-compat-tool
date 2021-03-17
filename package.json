@@ -24,7 +24,7 @@
   "dependencies": {
     "addons-linter": "^1.10.1",
     "browser-sync": "^2.26.7",
-    "chalk": "^2.4.2",
+    "chalk": "^4.0.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.1.9",
     "fs-extra": "^8.0.1",
