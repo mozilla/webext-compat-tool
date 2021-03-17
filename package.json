@@ -36,7 +36,7 @@
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.5",
     "mappy-breakpoints": "^0.2.3",
-    "redis": "^2.8.0",
+    "redis": "^3.0.0",
     "susy": "^3.0.5",
     "uuid": "^3.3.2"
   },
