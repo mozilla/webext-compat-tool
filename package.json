@@ -38,7 +38,7 @@
     "mappy-breakpoints": "^0.2.3",
     "redis": "^3.0.0",
     "susy": "^3.0.5",
-    "uuid": "^3.3.2"
+    "uuid": "^8.0.0"
   },
   "devDependencies": {}
 }
