@@ -4,7 +4,7 @@ const app = express();
 const fs = require('fs-extra');
 const path = require('path');
 const queue = require('./lib/queue');
-const uuid = require('uuid/v1');
+const { v1: uuid } = require('uuid');;
 
 const TEMP_DIR = path.join(__dirname, '.temp');
 

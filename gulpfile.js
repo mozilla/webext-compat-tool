@@ -83,7 +83,7 @@ gulp.task('build', gulp.series('sass-prod'));
 // Task: Watch
 // watches sass files and re-compiles on change
 gulp.task('watch', gulp.series('browser-sync', 'sass', () => {
-  return gulp.watch(src.sass, 'sass');
+  return gulp.watch(src.sass, gulp.series('saas'));
 }));
 
 
