@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/potch/webext-compat-tool.git"
+    "url": "git+https://github.com/mozilla/webext-compat-tool.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/potch/webext-compat-tool/issues"
+    "url": "https://github.com/mozilla/webext-compat-tool/issues"
   },
-  "homepage": "https://github.com/potch/webext-compat-tool#readme",
+  "homepage": "https://github.com/mozilla/webext-compat-tool#readme",
   "dependencies": {
     "addons-linter": "^5.0.0",
     "browser-sync": "^2.26.7",
