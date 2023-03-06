@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/mozilla/webext-compat-tool#readme",
   "dependencies": {
-    "addons-linter": "^5.27.0",
+    "addons-linter": "^5.31.0",
     "browser-sync": "^2.27.11",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
