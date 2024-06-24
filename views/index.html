@@ -15,35 +15,25 @@
     <div class="hero hero--full text-center">
       <div class="container">
         <img class="hero__logo" src="/img/fflogo.png" alt="Firefox Logo"  />
-        <h1 class="hero__title">Extension Compatibility Test for Firefox</h1>
+        <h1 class="hero__title">Extension Compatibility Test for Firefox is closing!</h1>
         <div class="col-md-6 col-md-offset-3">
           <p>
-            Use this tool to test your extension’s compatibility with Firefox!
-            To receive a report, upload your .crx file. We’ll also provide you with
-            resources and instructions on submitting it to addons.mozilla.org (AMO).
+            As of June 2024, we are no longer offering to test your extension’s
+            compatibility with Firefox here. Please use the addons.mozilla.org
+            (AMO) tool going forward:
+            <a class="hero__link" href="https://addons.mozilla.org/developers/addon/validate" target="_blank" rel="noopener noreferrer">Validate your extension on AMO now!</a>
           </p>
-          <!-- <button class="hero__button mt2">Select .CRX File</button> -->
-
-          <section class="upload mt4">
-            <form ref='uploadForm' id='uploadForm' action='/upload'
-                  method='post' encType="multipart/form-data">
-              <input type="file" name="package" id="fileField" accept=".crx">
-              <button ga-on="click" ga-event-category="Select Button" ga-event-action="click" class="upload__button upload__button--select">Select .crx File</button>
-              <button ga-on="click" ga-event-category="Submit Button" ga-event-action="click" class="upload__button upload__button--upload">Submit .crx File</button>
-              <h4 class="selected-file mt2"></h4>
-              <p class="fineprint">By accessing this compatibility tool, you agree to our <a href="https://www.mozilla.org/en-US/about/legal/terms/mozilla/">Terms of Use</a>.</p>
-            </form>
-          </section>
 
           <div class="mt4">
-            <a class="hero__learn" href="https://www.youtube.com/watch?v=f_8hVD88omo" target="_blank">Learn more about Firefox and browser extensions</a>
+            <br>
+            <br>
+            <br>
+            <a class="hero__link" href="https://www.youtube.com/watch?v=f_8hVD88omo" target="_blank" rel="noopener noreferrer">Learn more about Firefox and browser extensions</a>
           </div>
 
         </div>
       </div>
     </div>
-
-    <script src="/js/upload.js"></script>
 
     <!-- FOOTER -->
 
