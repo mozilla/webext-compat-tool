@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/mozilla/webext-compat-tool#readme",
   "dependencies": {
-    "browser-sync": "^2.27.11",
+    "browser-sync": "^3.0.2",
     "express": "^4.17.1",
     "fs-extra": "11.2.0",
     "gulp": "^4.0.2",
