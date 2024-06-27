@@ -33,7 +33,7 @@
     "gulp-sass": "^5.0.0",
     "gulp-sourcemaps": "^3.0.0",
     "mappy-breakpoints": "^0.2.3",
-    "sass": "^1.35.1",
+    "sass": "^1.77.6",
     "susy": "^3.0.5"
   }
 }
