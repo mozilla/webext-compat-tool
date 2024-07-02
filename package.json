@@ -2,36 +2,27 @@
   "name": "webext-compat-tool",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "prestart": "gulp build",
-    "dev": "DEVELOPMENT=1 gulp watch",
-    "build": "gulp build"
+    "prestart": "gulp build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mozilla/webext-compat-tool.git"
   },
-  "keywords": [],
-  "author": "",
   "license": "MPL-2.0",
   "bugs": {
     "url": "https://github.com/mozilla/webext-compat-tool/issues"
   },
   "homepage": "https://github.com/mozilla/webext-compat-tool#readme",
   "dependencies": {
-    "browser-sync": "^3.0.2",
     "express": "^4.17.1",
     "fs-extra": "11.2.0",
-    "gulp": "^4.0.2",
+    "gulp": "5.0.0",
     "gulp-autoprefixer": "^8.0.0",
     "gulp-clean-css": "^4.2.0",
-    "gulp-nodemon": "^2.5.0",
-    "gulp-rename": "^2.0.0",
     "gulp-sass": "^5.0.0",
-    "gulp-sourcemaps": "^3.0.0",
     "mappy-breakpoints": "^0.2.3",
     "sass": "^1.77.6",
     "susy": "^3.0.5"

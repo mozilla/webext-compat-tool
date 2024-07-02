@@ -6,14 +6,14 @@
 $ npm install
 ```
 
-## Develop
-Runs gulp. Builds and monitors SCSS files. SCSS sourcemaps. Hot reloading for CSS.
+## Development
+
 ```
-$ npm run dev
+$ DEVELOPMENT=1 npm start
 ```
 
-## Build
-Compiles & minifies css.
+## Production
+
 ```
-$ npm run build
+$ npm start
 ```
